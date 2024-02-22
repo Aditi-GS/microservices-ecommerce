@@ -1,0 +1,7 @@
+server:
+  port: 8088
+
+## which profiles should be active when running the application
+spring:
+  profiles:
+    active: native

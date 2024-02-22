@@ -1,0 +1,41 @@
+server:
+  port: 8060
+
+# where to find the discovery server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+      routes:
+        ## USER SERVICE
+        - id: user-service-route # unique route identifier
+          uri: lb://user-service # where to redirect
+          # lb - load balancer : in case of multiple instances
+          predicates:
+            - Path=/api/v2/ecommerce/user/**
+          filters:
+            - RewritePath=/api/v2/ecommerce/user/(?<path>.*), /$\{path}
+
+        ## PRODUCT - CATEGORY SERVICE
+        - id: product-category-service-route
+          uri: lb://product-category-service
+          predicates:
+            - Path=/api/v2/ecommerce/product/**
+            - Path=/api/v2/ecommerce/category/**
+          filters:
+            - RewritePath=/api/v2/ecommerce/product/(?<path>.*), /$\{path}
+            - RewritePath=/api/v2/ecommerce/category/(?<path>.*), /$\{path}
+

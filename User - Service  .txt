@@ -1,0 +1,27 @@
+User - Service : 
+Model: 
+	user - id, name, email, password
+DTO Request : 
+	name, email, password
+DTO Repsonse: 
+	id, name, email, password
+Controller: 
+	return HTTP status 
+Functionalities: 
+	signup / registration, login
+
+------------------------------
+@Builder - mongoDB
+DTO - do not expose model details to the outside layers
+@ResponseStatus
+@RequiredArgsConstructor
+@Slf4j
+stream()
+lambda
+WebClient - inter service communication
+------------------------------
+config-server : 8088
+discovery-server : 8761
+gateway-server : 8060
+user-service : 0
+product-category-service : 0
