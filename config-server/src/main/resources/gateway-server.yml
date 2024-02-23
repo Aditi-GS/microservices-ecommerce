@@ -1,11 +1,11 @@
 server:
-  port: 8060
+  port: 8090
 
 # where to find the discovery server
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: http://discovery-server:8761/eureka/
   instance:
     prefer-ip-address: true
 

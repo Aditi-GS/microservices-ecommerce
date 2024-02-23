@@ -3,10 +3,10 @@ spring:
     name: product-category-service
 
   config:
-    import: optional:configserver:http://localhost:8088
+    import: optional:configserver:http://config-server:8088
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecommerce
+    url: jdbc:postgresql://postgresdb:5432/ecommerce
     username: postgres
     password: postgres
 

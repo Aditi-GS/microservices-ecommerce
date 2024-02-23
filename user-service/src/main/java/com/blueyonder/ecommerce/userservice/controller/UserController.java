@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+//  @PreAuthorize(hasRole('USER'))
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/api/v2/ecommerce/user")
