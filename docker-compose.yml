@@ -1,0 +1,106 @@
+version: '2.23.3'
+
+services:
+  postgresdb:
+    image: postgres
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    environment:
+      - POSTGRES_PASSWORD=$POSTGRES_ROOT_PASSWORD
+      - POSTGRES_DATABASE=$POSTGRES_DATABASE
+    ports:
+      - $POSTGRES_LOCAL_PORT:$POSTGRES_DOCKER_PORT
+    volumes:
+      - db:/var/lib/postgres
+    networks:
+      - ecommerce-network
+
+  config-server:
+    image: config-server-image:v2
+    restart: on-failure
+    ports:
+      - 8088:8088
+    networks:
+      - ecommerce-network
+    volumes:
+      - .m2:/root/.m2
+
+  discovery-server:
+    image: discovery-server-image:v2
+    restart: on-failure
+    depends_on:
+      - config-server
+    ports:
+      - 8761:8761
+    volumes:
+      - .m2:/root/.m2
+    networks:
+      - ecommerce-network
+
+  gateway-server:
+    image: gateway-server-image:v2
+    restart: on-failure
+    depends_on:
+      - config-server
+      - discovery-server
+    ports:
+      - 8090:8090
+    volumes:
+      - .m2:/root/.m2
+    networks:
+      - ecommerce-network
+
+  user-service:
+    image: user-service-image:v2
+    restart: unless-stopped
+    depends_on:
+      - postgresdb
+      - config-server
+      - discovery-server
+      - gateway-server
+    env_file:
+      - ./.env
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.application.name" : "user-service",
+        "spring.datasource.url"  : "jdbc:postgres://postgresdb:$POSTGRES_DOCKER_PORT/$POSTGRES_DATABASE",
+        "spring.datasource.username" : "$POSTGRES_USER",
+        "spring.datasource.password" : "$POSTGRES_ROOT_PASSWORD",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    volumes:
+      - .m2:/root/.m2
+    networks:
+      - ecommerce-network
+
+  product-category-service:
+    image: product-category-service-image:v2
+    restart: unless-stopped
+    depends_on:
+      - postgresdb
+      - config-server
+      - discovery-server
+      - gateway-server
+    env_file:
+      - ./.env
+    environment:
+      SPRING_APPLICATION_JSON: '{
+        "spring.application.name" : "product-category-service",
+        "spring.datasource.url"  : "jdbc:postgres://postgresdb:$POSTGRES_DOCKER_PORT/$POSTGRES_DATABASE",
+        "spring.datasource.username" : "$POSTGRES_USER",
+        "spring.datasource.password" : "$POSTGRES_ROOT_PASSWORD",
+        "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
+        "spring.jpa.hibernate.ddl-auto" : "update"
+      }'
+    volumes:
+      - .m2:/root/.m2
+    networks:
+      - ecommerce-network
+
+volumes:
+  db:
+
+networks:
+  ecommerce-network:
