@@ -21,7 +21,7 @@ lambda
 WebClient - inter service communication
 ------------------------------
 config-server : 8088
-discovery-server : 8761
-gateway-server : 8060
+discovery-server : 8061
+gateway-server : 8090
 user-service : 0
 product-category-service : 0

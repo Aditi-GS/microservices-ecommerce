@@ -7,6 +7,8 @@ import com.blueyonder.ecommerce.userservice.model.User;
 public class UserUtility {
 
     private UserUtility() {}
+
+    // Response to Model format
     public static User mapToUser(UserRequest userRequest) {
         User user = new User();
         user.setUserName(userRequest.getName());
@@ -16,6 +18,7 @@ public class UserUtility {
         return user;
     }
 
+    // Model to Request format
     public static UserResponse mapToUserResponse(User user) {
         UserResponse userResponse = new UserResponse();
         userResponse.setId(user.getUserId());

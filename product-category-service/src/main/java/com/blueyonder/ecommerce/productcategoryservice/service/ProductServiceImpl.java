@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product addProduct(ProductRequest productRequest) throws ProductAlreadyExistsException {
         Product product = ProductUtility.mapToProduct(productRequest);
-        if (productRepo.existsById(product.getProductId())) {
+        if (productRepo.findByName(product.getProductName()).isPresent()) {
             log.error("PRODUCT {} ALREADY EXISTS. DUPLICATES NOT ALLOWED.", product.getProductName());
             throw new ProductAlreadyExistsException();
         }
@@ -55,7 +55,7 @@ public class ProductServiceImpl implements ProductService {
             return product.get();
         }
         else {
-            log.error("PRODUCT {} NOT FOUND.", product.get().getProductName());
+            log.error("PRODUCT NOT FOUND.");
             throw new ProductNotFoundException();
         }
     }

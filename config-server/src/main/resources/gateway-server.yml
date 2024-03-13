@@ -5,9 +5,9 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery-server:8761/eureka/
+      defaultZone: http://localhost:8061/eureka/
   instance:
-    prefer-ip-address: true
+    preferIpAddress: true
 
 logging:
   pattern:
@@ -17,25 +17,27 @@ spring:
   cloud:
     gateway:
       discovery:
+        enabled: true
         locator:
           enabled: true
+          lowerCaseServiceId: true
       routes:
         ## USER SERVICE
         - id: user-service-route # unique route identifier
-          uri: lb://user-service # where to redirect
+          uri: lb://USER-SERVICE # where to redirect
           # lb - load balancer : in case of multiple instances
           predicates:
             - Path=/api/v2/ecommerce/user/**
-          filters:
-            - RewritePath=/api/v2/ecommerce/user/(?<path>.*), /$\{path}
+#          filters:
+#            - RewritePath=/api/v2/ecommerce/user/(?<path>.*), /$\{path}
 
         ## PRODUCT - CATEGORY SERVICE
         - id: product-category-service-route
-          uri: lb://product-category-service
+          uri: lb://PRODUCT-CATEGORY-SERVICE
           predicates:
             - Path=/api/v2/ecommerce/product/**
             - Path=/api/v2/ecommerce/category/**
-          filters:
-            - RewritePath=/api/v2/ecommerce/product/(?<path>.*), /$\{path}
-            - RewritePath=/api/v2/ecommerce/category/(?<path>.*), /$\{path}
+#          filters:
+#            - RewritePath=/api/v2/ecommerce/product/(?<path>.*), /$\{path}
+#            - RewritePath=/api/v2/ecommerce/category/(?<path>.*), /$\{path}
 

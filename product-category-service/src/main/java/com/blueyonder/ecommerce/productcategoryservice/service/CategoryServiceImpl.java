@@ -24,7 +24,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category addCategory(CategoryRequest categoryRequest) throws CategoryAlreadyExistsException {
         Category category = CategoryUtility.mapToCategory(categoryRequest);
-        if (category.getCategoryId()==null || !categoryRepo.existsById(category.getCategoryId())) {
+        if (categoryRepo.findByName(category.getCategoryName()).isEmpty()) {
             log.info("CATEGORY {} SAVED.", category.getCategoryName());
             return categoryRepo.save(category);
         }

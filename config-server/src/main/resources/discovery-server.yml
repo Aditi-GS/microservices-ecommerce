@@ -1,11 +1,11 @@
 ## default eureka server port
 server:
-  port: 8761
+  port: 8061
 
 eureka:
   instance:
     hostname: localhost
-    prefer-ip-address: true
+    preferIpAddress: true
   client:
     registerWithEureka: false # discovery server itself
     fetchRegistry: false  # discovery server itself

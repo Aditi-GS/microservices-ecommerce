@@ -25,7 +25,7 @@ public class CategoryController {
         return CategoryUtility.mapToCategoryResponse(categoryService.addCategory(categoryRequest));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<CategoryResponse> getAllCategories() {
         return categoryService.getAllCategories().stream()

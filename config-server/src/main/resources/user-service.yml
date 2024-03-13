@@ -4,7 +4,9 @@ server:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://discovery-server:8761/eureka/
+      defaultZone: http://localhost:8061/eureka/
+  instance:
+    preferIpAddress: true
 
 logging:
   pattern:
@@ -12,3 +14,17 @@ logging:
 
 springdoc:
   packagesToScan: com.blueyonder.ecommerce.userservice
+
+
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ecommerce
+    username: postgres
+    password: postgres
+
+  jpa:
+    #    properties:
+    #      hibernate:
+    #        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update

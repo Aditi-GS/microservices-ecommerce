@@ -26,7 +26,7 @@ public class ProductController {
         return ProductUtility.mapToProductResponse(productService.addProduct(productRequest));
     }
 
-    @GetMapping
+    @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public List<ProductResponse> getAllProducts() {
         return productService.getAllProducts().stream()
@@ -52,7 +52,7 @@ public class ProductController {
         return ProductUtility.mapToProductResponse(productService.updateProductByName(name, price, desc));
     }
 
-    @PutMapping("/update-product-desc/{description}")
+    @PutMapping("/update-product-description/{description}")
     @ResponseStatus(HttpStatus.OK)
     public ProductResponse updateProductByDescription(@PathVariable String description, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "price", required = false) Double price) throws ProductNotFoundException {
         return ProductUtility.mapToProductResponse(productService.updateProductByDescription(description, name, price));
