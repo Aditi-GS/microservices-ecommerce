@@ -1,0 +1,25 @@
+PRODUCT :
+Create :    POST http://localhost:8090/api/v2/ecommerce/product/add-product
+            {
+                "productName": "mad angles",
+                "price": "10.0",
+                "description": "spicy, crispy"
+            }
+
+Retrieve -  all GET http://localhost:8090/api/v2/ecommerce/product/all
+            by name GET http://localhost:8090/api/v2/ecommerce/product/get-product-name/mad%20angles
+            by description GET http://localhost:8090/api/v2/ecommerce/product/get-product-description/microphone
+
+Update -    by name PUT http://localhost:8090/api/v2/ecommerce/product/update-product-name/zudio%20tshirt
+            {
+                "price": 249
+            }
+
+            by description PUT http://localhost:8090/api/v2/ecommerce/product/update-product-description/ruled,%20spiral%20bound
+            {
+                "productName": "paperclip book"
+            }
+
+Delete :    DELETE http://localhost:8090/api/v2/ecommerce/product/delete-product/4
+
+--------------------------------------------------------------------

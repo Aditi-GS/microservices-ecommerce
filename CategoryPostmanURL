@@ -1,0 +1,23 @@
+CATEGORY :
+Create :    POST http://localhost:8090/api/v2/ecommerce/category/add-category
+            {
+                "categoryName": "snacks",
+                "description": "packed munch-ons"
+            }
+
+Retrieve -  all GET http://localhost:8090/api/v2/ecommerce/category/all
+            by name GET http://localhost:8090/api/v2/ecommerce/category/get-category-name/snacks
+            by description GET http://localhost:8090/api/v2/ecommerce/category/get-category-description/clothes
+
+Update -    by name PUT http://localhost:8090/api/v2/ecommerce/category/update-category-name/fashion
+            {
+                "description": "apparels"
+            }
+
+            by description PUT http://localhost:8090/api/v2/ecommerce/category/update-category-description/packed%20munch-ons
+            {
+                "categoryName": "nibbles"
+            }
+
+Delete :    DELETE http://localhost:8090/api/v2/ecommerce/category/delete-category/4
+

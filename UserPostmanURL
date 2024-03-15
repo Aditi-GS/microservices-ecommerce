@@ -1,0 +1,17 @@
+USER :
+Registration :  POST http://localhost:8090/api/v2/ecommerce/user/registration
+                {
+                    "name": "qwerty",
+                    "password": "qwerty",
+                    "verifypassword": "qwerty",
+                    "email": "qwerty@gmail.com"
+                }
+
+Login :     POST http://localhost:8090/api/v2/ecommerce/user/login
+        {
+            "name": "qwerty",
+            "password": "qwerty"
+        }
+
+--------------------------------------------------------------------
+
